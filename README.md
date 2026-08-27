@@ -4,6 +4,39 @@ Official implementation of **dLI-RADS**, an interpretable deep learning framewor
 
 dLI-RADS combines **four deep-learning predictions** and **four handcrafted imaging features** inspired by LI-RADS, and integrates them using logistic regression to estimate the probability of HCC.
 
+## Model overview
+
+<p align="center">
+  <img src="assets/Figure 1.jpeg" width="900">
+</p>
+
+<p align="center">
+  <em>Overview of the dLI-RADS framework.</em>
+</p>
+
+---
+
+## Pretrained models
+
+Pretrained weights for the four deep-learning components of dLI-RADS are provided in the `weights/` directory:
+
+```text id="6k3l6r"
+weights/
+├── hcc.ckpt
+├── aphe.ckpt
+├── ec.ckpt
+└── npw.ckpt
+```
+
+The models respectively predict:
+
+* **HCC-DL** — HCC presence
+* **APHE-DL** — arterial phase hyperenhancement
+* **EC-DL** — enhancing capsule
+* **NPW-DL** — non-peripheral washout
+
+These predictions are used as four of the eight intermediate features of dLI-RADS.
+
 ---
 
 ## Method
@@ -24,20 +57,6 @@ $$
 
 where \(x_k\) are the eight intermediate features.
 
-### Model overview
-
-<!-- Replace with the final figure path -->
-
-<p align="center">
-  <img src="assets/Figure 1.jpeg" width="900">
-</p>
-
-<p align="center">
-  <em>Overview of the dLI-RADS framework.</em>
-</p>
-
----
-
 ## Preprocessing
 
 CT volumes are:
@@ -51,7 +70,7 @@ The three CT phases and lesion segmentation are stacked as model inputs.
 
 Relevant preprocessing scripts:
 
-```text
+```text id="enlog3"
 preprocessing.py
 transfer_numpy.py
 generate_patches.py
@@ -59,12 +78,11 @@ generate_patches.py
 
 Local paths in these files and in `config.py` must be adapted to the user's dataset.
 
----
-
 ## Repository structure
 
-```text
+```text id="8am9br"
 dlirads/
+├── assets/
 ├── models/                         # neural network architectures
 ├── weights/                        # pretrained models
 │   ├── aphe.ckpt
@@ -88,13 +106,11 @@ dlirads/
 └── dino.py
 ```
 
----
-
 ## Training
 
 Training is launched through `main.py`. Arguments are defined in `config.py` and can be provided from the command line following:
 
-```bash
+```bash id="mr2qer"
 python main.py \
     --mode finetuning \
     --label_name <target> \
@@ -106,16 +122,16 @@ python main.py \
 
 The four classifiers correspond to the following targets:
 
-```text
-HCC                 has_hcc
-APHE                aphe
-Enhancing capsule   ec
-Non-peripheral washout  npw
+```text id="u5cs42"
+HCC                    has_hcc
+APHE                   aphe
+Enhancing capsule      ec
+Non-peripheral washout npw
 ```
 
 For example:
 
-```bash
+```bash id="lt0b6a"
 python main.py \
     --mode finetuning \
     --label_name has_hcc \
@@ -127,7 +143,7 @@ python main.py \
 
 The experiments reported in the paper used:
 
-```text
+```text id="iqvitd"
 Optimizer       AdamW
 Learning rate   1e-5
 Weight decay    1e-3
@@ -136,8 +152,6 @@ Epochs          300
 ```
 
 The current implementation was developed on the Jean Zay / IDRIS computing environment. Paths and SLURM-specific settings may therefore need to be adapted for local execution.
-
----
 
 ## Operating points
 
@@ -157,21 +171,48 @@ where \(c\) denotes either the LI-RADS 5 or LI-RADS 4/5 operating point.
 
 The resulting thresholds define **dLR-5** and **dLR-4,5**, respectively.
 
----
+## Results
 
-## Pretrained models
+### Diagnostic performance
 
-The pretrained neural-network weights are provided in `weights/`:
+dLI-RADS achieved an AUC of **0.76** on the internal evaluation set and **0.84** on the independent external evaluation set.
 
-```text
-weights/
-├── hcc.ckpt
-├── aphe.ckpt
-├── ec.ckpt
-└── npw.ckpt
-```
+<p align="center">
+  <img src="assets/Figure%204a.jpg" width="45%">
+  <img src="assets/Figure%204b.jpg" width="45%">
+</p>
 
-These models generate the four deep-learning intermediate features used by dLI-RADS.
+<p align="center">
+  <em>ROC curves on the internal (left) and external (right) evaluation sets.</em>
+</p>
+
+At the dLR-5 operating point, dLI-RADS achieved an accuracy of **80%** on the internal evaluation set, compared with **74%** for LI-RADS. On the external evaluation set, dLI-RADS reached **93% sensitivity** and **86% accuracy**.
+
+### Interpretable predictions
+
+The intermediate dLI-RADS features provide a lesion-level representation of the imaging characteristics driving each prediction.
+
+<p align="center">
+  <img src="assets/Figure%203.jpeg" width="850">
+</p>
+
+<p align="center">
+  <em>Examples of dLI-RADS predictions and their intermediate imaging features.</em>
+</p>
+
+The radar plots allow the contribution of deep-learning and handcrafted LI-RADS-related features to be inspected for individual lesions, and highlight cases where dLI-RADS and radiological LI-RADS assessments agree or differ.
+
+### Complementarity with LI-RADS
+
+dLI-RADS and LI-RADS capture partly complementary information. Combining their risk categories produced a maximal-risk group with **96% specificity at 69% sensitivity**.
+
+<p align="center">
+  <img src="assets/Figure%205.jpg" width="600">
+</p>
+
+<p align="center">
+  <em>Diagnostic operating points obtained by combining dLI-RADS and LI-RADS risk categories.</em>
+</p>
 
 ---
 
@@ -179,7 +220,7 @@ These models generate the four deep-learning intermediate features used by dLI-R
 
 If you use this code, please cite:
 
-```bibtex
+```bibtex id="920qp8"
 @article{sarfati_dlirads,
   title   = {dLI-RADS: an interpretable deep learning method for early hepatocellular carcinoma diagnosis on multiphase CT},
   author  = {Sarfati, Emma and Bône, Alexandre and Gori, Pietro and Yang, Sisi and Rohé, Marc-Michel and Nicolas, François and Lee, Jeong-Min and Yoon, Jeong Hee and Ronot, Maxime and Bloch, Isabelle and Aubé, Christophe},
@@ -189,8 +230,6 @@ If you use this code, please cite:
 ```
 
 Final publication information and DOI will be added upon publication.
-
----
 
 ## License
 
