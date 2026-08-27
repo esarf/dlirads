@@ -156,6 +156,7 @@ $$
 where \(c\) denotes either the LI-RADS 5 or LI-RADS 4/5 operating point.
 
 The resulting thresholds define **dLR-5** and **dLR-4,5**, respectively.
+
 ---
 
 ## Pretrained models
