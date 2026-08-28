@@ -178,8 +178,8 @@ The resulting thresholds define **dLR-5** and **dLR-4,5**, respectively.
 dLI-RADS achieved an AUC of **0.76** on the internal evaluation set and **0.84** on the independent external evaluation set.
 
 <p align="center">
-  <img src="assets/Figure%204a.jpg" width="45%">
-  <img src="assets/Figure%204b.jpg" width="45%">
+  <img src="assets/Figure%204a.jpg" width="49%">
+  <img src="assets/Figure%204b.jpg" width="49%">
 </p>
 
 <p align="center">
