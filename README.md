@@ -55,7 +55,7 @@ P(\mathrm{HCC}) =
 \right)
 $$
 
-where \(x_k\) are the eight intermediate features.
+where $\(x_k\)$ are the eight intermediate features.
 
 ## Preprocessing
 
