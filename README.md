@@ -1,5 +1,7 @@
 # dLI-RADS: an interpretable deep learning method for early hepatocellular carcinoma diagnosis on multiphase CT
 
+[![DOI](https://zenodo.org/badge/1109973546.svg)](https://doi.org/10.5281/zenodo.22667587)
+
 Official implementation of **dLI-RADS**, an interpretable deep learning framework for hepatocellular carcinoma (HCC) diagnosis from multiphase CT.
 
 dLI-RADS combines **four deep-learning predictions** and **four handcrafted imaging features** inspired by LI-RADS, and integrates them using logistic regression to estimate the probability of HCC.
