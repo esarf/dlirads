@@ -2,7 +2,18 @@
 
 [![DOI](https://zenodo.org/badge/1109973546.svg)](https://doi.org/10.5281/zenodo.22667587)
 
-Official implementation of **dLI-RADS**, an interpretable deep learning framework for hepatocellular carcinoma (HCC) diagnosis from multiphase CT.
+Official implementation of **dLI-RADS**, an interpretable deep learning framework for hepatocellular carcinoma (HCC) diagnosis from multiphase CT, published in *Scientific Reports* (Nature Portfolio).
+
+If you consider this helpful in your research, please don't forget to cite us:
+
+```bibtex id="920qp8"
+@article{sarfati_dlirads,
+  title   = {dLI-RADS: an interpretable deep learning method for early hepatocellular carcinoma diagnosis on multiphase CT},
+  author  = {Sarfati, Emma and Bône, Alexandre and Gori, Pietro and Yang, Sisi and Rohé, Marc-Michel and Nicolas, François and Lee, Jeong-Min and Yoon, Jeong Hee and Ronot, Maxime and Bloch, Isabelle and Aubé, Christophe},
+  journal = {Scientific Reports},
+  year    = {2026}
+}
+```
 
 dLI-RADS combines **four deep-learning predictions** and **four handcrafted imaging features** inspired by LI-RADS, and integrates them using logistic regression to estimate the probability of HCC.
 
@@ -217,21 +228,6 @@ dLI-RADS and LI-RADS capture partly complementary information. Combining their r
 </p>
 
 ---
-
-## Citation
-
-If you use this code, please cite:
-
-```bibtex id="920qp8"
-@article{sarfati_dlirads,
-  title   = {dLI-RADS: an interpretable deep learning method for early hepatocellular carcinoma diagnosis on multiphase CT},
-  author  = {Sarfati, Emma and Bône, Alexandre and Gori, Pietro and Yang, Sisi and Rohé, Marc-Michel and Nicolas, François and Lee, Jeong-Min and Yoon, Jeong Hee and Ronot, Maxime and Bloch, Isabelle and Aubé, Christophe},
-  journal = {},
-  year    = {2026}
-}
-```
-
-Final publication information and DOI will be added upon publication.
 
 ## License
 
